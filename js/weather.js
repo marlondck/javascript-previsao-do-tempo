@@ -1,4 +1,5 @@
 const APIKey = 'GrZtnorC3Pt16ZH3pUQJBDD51HLyMs6j'
+
 const getCityUrl = cityName =>
   `http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${APIKey}&q=${cityName}`
 
@@ -19,4 +20,23 @@ const getCityData = async cityName => {
   }
 }
 
-getCityData('Campo Novo do Parecis')
+const getCityDataWeather = async cityName => {
+  try {
+    const { Key } = await getCityData(cityName)
+    const cityWeatherUrl = `http://dataservice.accuweather.com/currentconditions/v1/${Key}?apikey=${APIKey}`
+    const response = await fetch(cityWeatherUrl)
+
+    if(!response.ok) {
+      throw new Error('Não foi possível obter os dados.')
+    }
+
+    const [cityWeatherData] = await response.json()
+    debugger
+    return cityWeatherData
+
+  } catch ({ name, message }) {
+    console.log(`${name}: ${message}`)
+  }
+}
+
+getCityDataWeather('Campo Novo do Parecis')
