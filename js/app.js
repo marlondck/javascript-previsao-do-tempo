@@ -14,7 +14,7 @@ const showCityCard = () => {
 }
 
 const showCityWeatherInfo = async cityName => {
-  const [{ Key, LocalizedName }] = await getCityData(inputValue)
+  const [{ Key, LocalizedName }] = await getCityData(cityName)
   const [{ WeatherText, Temperature, IsDayTime, WeatherIcon }] = await getCityDataWeather(Key)
   const timeIcon = `<img src="./src/icons/${WeatherIcon}.svg"/>`
 
